@@ -12,6 +12,7 @@ class Trip extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+
     ];
 
 
@@ -24,5 +25,14 @@ class Trip extends Model
     {
         $data  = json_decode($days, true);
         $this->attributes['days'] =  json_encode($data);
+    }
+
+    public function Route()
+    {
+        return $this->belongsTo(Route::class, 'id');
+    }
+    public function TripStops()
+    {
+        return $this->hasMany(TripStop::class, 'id');
     }
 }

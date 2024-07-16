@@ -13,4 +13,8 @@ class Route extends Model
         'created_at',
         'updated_at',
     ];
+    public function Trips()
+    {
+        return $this->hasMany(Trip::class, 'id');
+    }
 }

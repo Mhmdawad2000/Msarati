@@ -14,4 +14,17 @@ class TripStop extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function Trip()
+    {
+        return $this->belongsTo(Trip::class, 'id');
+    }
+
+
+    public function getLocationAttribute()
+    {
+        return $this->attributes['city'] . '/' . $this->attributes['place'];
+    }
+
+    protected $appends = ['location'];
 }
