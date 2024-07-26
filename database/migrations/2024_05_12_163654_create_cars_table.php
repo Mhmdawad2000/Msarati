@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('car_number');
             $table->string('model');
             $table->string('color');
-            $table->integer('num_passengers');
             $table->timestamps();
         });
     }

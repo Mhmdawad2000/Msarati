@@ -38,8 +38,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function  getFnameAttribute($fname)
+    {
+        return ucfirst($fname);
+    }
+    public function  getLnameAttribute($lname)
+    {
+        return ucfirst($lname);
+    }
+
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
+    }
+    public function Bus()
+    {
+        return $this->hasone(Bus::class, 'id');
+    }
+
+    public function Car()
+    {
+        return $this->hasone(Car::class, 'id');
     }
 }

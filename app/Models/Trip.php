@@ -29,7 +29,7 @@ class Trip extends Model
 
     public function Route()
     {
-        return $this->belongsTo(Route::class, 'id');
+        return $this->belongsTo(Route::class, 'route_id');
     }
     public function TripStops()
     {

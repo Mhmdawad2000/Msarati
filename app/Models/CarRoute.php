@@ -13,4 +13,12 @@ class CarRoute extends Model
         'created_at',
         'updated_at',
     ];
+    public function Car()
+    {
+        return $this->belongsTo(Car::class, 'car_id');
+    }
+    public function Route()
+    {
+        return $this->belongsTo(Route::class, 'route_id');
+    }
 }

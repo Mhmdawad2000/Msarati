@@ -17,4 +17,8 @@ class Route extends Model
     {
         return $this->hasMany(Trip::class, 'id');
     }
+    public function CarRoutes()
+    {
+        return $this->hasMany(CarRoute::class, 'id');
+    }
 }

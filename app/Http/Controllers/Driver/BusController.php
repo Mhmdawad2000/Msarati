@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Driver;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Bus\BusResource;
+use App\Http\Resources\PagenateCollection;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Bus;
 use App\Http\Requests\Bus\Add_Bus_Request;
 use App\Http\Requests\Bus\Edit_Bus_Request;
 use Illuminate\Http\Request;
+
+use function Laravel\Prompts\select;
 
 class BusController extends Controller
 {
@@ -16,15 +20,15 @@ class BusController extends Controller
     {
         $data = $request->validated();
         $bus = Bus::create($data);
-        return $this->returnData('Stored', 'bus', $bus);
+        return $this->returnData('Stored', 'bus', new BusResource($bus));
     }
 
     public function Editbus(Edit_Bus_Request $request)
     {
         $data = $request->validated();
-        $bus = Bus::where('id', $data->id);
+        $bus = Bus::with('vehicle')->find($data['id']);
         $bus->update($data);
-        return $this->returnData('Edited', 'bus', $bus);
+        return $this->returnData('Edited', 'bus', new BusResource($bus));
     }
 
     public function GetbusById(Request $request)
@@ -32,9 +36,9 @@ class BusController extends Controller
         $request->validate([
             'id' => 'required|exists:buses,id'
         ]);
-        $bus = Bus::find($request->id);
+        $bus = Bus::with('vehicle')->find($request->id);
         if ($bus) {
-            return $this->returnCollection('bus', $bus);
+            return $this->returnCollection('bus', new BusResource($bus));
         } else {
             return $this->returnError('The bus not found', 404);
         }
@@ -42,7 +46,7 @@ class BusController extends Controller
 
     public function GetAllbuses()
     {
-        $buss = Bus::paginate(10);
-        return $this->returnCollection('buses', $buss);
+
+        return $this->returnCollection('buses', new PagenateCollection(Bus::paginate(10)));
     }
 }

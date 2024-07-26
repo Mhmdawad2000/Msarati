@@ -13,4 +13,12 @@ class Vehicle extends Model
         'created_at',
         'updated_at'
     ];
+    public function Buses()
+    {
+        return $this->hasMany(Bus::class, 'id');
+    }
+    public function Cars()
+    {
+        return $this->hasMany(Car::class, 'id');
+    }
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\Driver\BusTripController;
 use App\Http\Controllers\Driver\CarRouteController;
 use App\Http\Controllers\Driver\UserBusTripController;
 use App\Http\Controllers\User\RequestController;
-use Illuminate\Http\Request;
+use App\Models\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 Route::group(['middleware' => ['auth:sanctum', 'Driver_Role']], function () {
     ////////////////////////////////// Start Car

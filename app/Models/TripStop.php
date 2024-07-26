@@ -17,7 +17,7 @@ class TripStop extends Model
 
     public function Trip()
     {
-        return $this->belongsTo(Trip::class, 'id');
+        return $this->belongsTo(Trip::class, 'trip_id');
     }
 
 

@@ -13,4 +13,17 @@ class Car extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function Vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id');
+    }
+    public function Driver()
+    {
+        return $this->belongsTo(User::class, 'user_driver_id');
+    }
+    public function CarRoutes()
+    {
+        return $this->hasMany(CarRoute::class, 'id');
+    }
 }

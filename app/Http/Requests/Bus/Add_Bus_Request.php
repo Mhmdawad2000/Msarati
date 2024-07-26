@@ -24,13 +24,12 @@ class Add_Bus_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'user_driver_id' => 'required|exists:users,id|unique:buses,user_driver_id|',
+            'user_driver_id' => 'required|exists:users,id|unique:buses,user_driver_id|unique:cars,user_driver_id',
             'vehicle_id' => 'required|exists:vehicles,id',
             'bus_type' => 'required|string|max:255',
             'bus_number' => 'required|string|max:255',
             'model' => 'required|string|max:225',
             'color' => 'required|string|max:225',
-            'num_passengers' => 'required|integer|min:1',
         ];
     }
 
@@ -38,14 +37,9 @@ class Add_Bus_Request extends FormRequest
     {
         $validator->after(function ($validator) {
             $userDriverId = $this->input('user_driver_id');
-            $vehicle_id = $this->input('vehicle_id');
             $user = User::find($userDriverId);
-            $vehicle = Vehicle::find($vehicle_id);
-            if ($user && $user->user_type !== 'driver') {
+            if ($user && $user->user_type !== 'Driver') {
                 $validator->errors()->add('user_driver_id', 'The selected user must be a driver.');
-            }
-            if ($vehicle && $vehicle->num_passengers < $this->input('num_passengers')) {
-                $validator->errors()->add('num_passengers', 'The selected num_passengers must be max ' . $vehicle->num_passengers . ' and min 1.');
             }
         });
     }
