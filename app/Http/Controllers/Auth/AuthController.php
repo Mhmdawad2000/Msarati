@@ -25,12 +25,7 @@ class AuthController extends Controller
                 return $this->returnError('incorrect password', 402);
             } else {
                 $token = $user->createToken('auth_token')->plainTextToken;
-                $message = [
-                    'msg' => 'login successfuly',
-                    'user' => $user,
-                    'token' => $token,
-                ];
-                return $this->returnData('logined', 'user', $message);
+                return $this->returnLogin('login successfuly', $token, $user->user_type);
             }
         } else {
             return $this->returnError('incorrect username', 402);
@@ -41,14 +36,14 @@ class AuthController extends Controller
         $data = $request->validated();
         $data['user_type'] = 'Passenger';
         $user = User::create($data);
-        return $this->returnData('Registered successfuly', 'passenger', $user);
+        return $this->returnRegister('passenger', 'Registered successfuly');
     }
     public function RegisterDriver(AddUserRequest $request)
     {
         $data = $request->validated();
         $data['user_type'] = 'Driver';
         $user = User::create($data);
-        return $this->returnData('Registered successfuly', 'driver', $user);
+        return $this->returnRegister('driver', 'Registered successfuly');
     }
 
     public function RegisterAdmin(AddUserRequest $request)
@@ -56,6 +51,6 @@ class AuthController extends Controller
         $data = $request->validated();
         $data['user_type'] = 'Admin';
         $user = User::create($data);
-        return $this->returnData('Registered successfuly', 'admin', $user);
+        return $this->returnRegister('admin', 'Registered successfuly');
     }
 }

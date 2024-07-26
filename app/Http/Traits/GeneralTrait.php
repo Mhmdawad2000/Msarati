@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Traits;
 
 trait GeneralTrait
@@ -7,7 +8,6 @@ trait GeneralTrait
     {
         $message = [
             'msg' => $msg,
-            'errNum' => '200',
             'state' => 'success',
             $tital => $data,
         ];
@@ -17,12 +17,11 @@ trait GeneralTrait
     {
         $message = [
             'msg' => $msg,
-            'errNum' => '200',
             'state' => 'success',
         ];
         return response()->json($message, 200);
     }
-    public function returnCollection($tital,$data)
+    public function returnCollection($tital, $data)
     {
         $message = [
             $tital => $data
@@ -38,6 +37,23 @@ trait GeneralTrait
         ];
         return response()->json($message, $errNum);
     }
+    public function returnLogin($msg, $token, $role)
+    {
+        $message = [
+            'msg' => $msg,
+            'token' => $token,
+            'role' => $role,
+            'date' => now()->format('Y-M-d H:i:s'),
+            'state' => 'success',
+        ];
+        return response()->json($message, 200);
+    }
+    public function returnRegister($role, $msg)
+    {
+        $message = [
+            'message' => ucfirst($role) . ' ' . strtolower($msg),
+            'state' => 'success',
+        ];
+        return response()->json($message, 200);
+    }
 }
-
-?>
