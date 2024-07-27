@@ -30,4 +30,9 @@ class Car extends Model
     {
         return $this->belongsToMany(Route::class, 'car_routes');
     }
+
+    public static function isDriverHaveCar($id)
+    {
+        return self::where('user_driver_id', $id)->first() == null ? 0 : 1;
+    }
 }

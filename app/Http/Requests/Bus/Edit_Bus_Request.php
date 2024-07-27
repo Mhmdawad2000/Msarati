@@ -27,8 +27,8 @@ class Edit_Bus_Request extends FormRequest
     {
         return [
             'id' => 'required|exists:buses,id',
-            'user_driver_id' => 'required|exists:users,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
+            // 'user_driver_id' => 'required|exists:users,id',
+            // 'vehicle_id' => 'required|exists:vehicles,id',
             'bus_type' => 'required|string|max:255',
             'bus_number' => 'required|string|max:255',
             'model' => 'required|string|max:225',
@@ -37,20 +37,20 @@ class Edit_Bus_Request extends FormRequest
     }
 
 
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $userDriverId = $this->input('user_driver_id');
-            $id = $this->input('id');
-            $user = User::find($userDriverId);
-            $bus = Bus::where('user_driver_id', $userDriverId)->first();
-            $iscar = Car::where('user_driver_id', $userDriverId)->first();
-            if ($user && $user->user_type !== 'Driver') {
-                $validator->errors()->add('user_driver_id', 'The selected user must be a driver.');
-            }
-            if ($bus && $id !== $bus->id || $iscar) {
-                $validator->errors()->add('user_driver_id', 'The user driver id has already been taken.');
-            }
-        });
-    }
+    // public function withValidator($validator)
+    // {
+    //     $validator->after(function ($validator) {
+    //         $userDriverId = $this->input('user_driver_id');
+    //         $id = $this->input('id');
+    //         $user = User::find($userDriverId);
+    //         $bus = Bus::where('user_driver_id', $userDriverId)->first();
+    //         $iscar = Car::where('user_driver_id', $userDriverId)->first();
+    //         if ($user && $user->user_type !== 'Driver') {
+    //             $validator->errors()->add('user_driver_id', 'The selected user must be a driver.');
+    //         }
+    //         if ($bus && $id !== $bus->id || $iscar) {
+    //             $validator->errors()->add('user_driver_id', 'The user driver id has already been taken.');
+    //         }
+    //     });
+    // }
 }

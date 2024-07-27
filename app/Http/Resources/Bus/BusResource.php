@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Bus;
 
 use App\Http\Resources\Vehicle\VehicleResource;
+use Color\Color;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

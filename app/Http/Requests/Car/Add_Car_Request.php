@@ -24,7 +24,7 @@ class Add_Car_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'user_driver_id' => 'required|exists:users,id|unique:buses,user_driver_id|unique:cars,user_driver_id',
+            // 'user_driver_id' => 'required|exists:users,id|unique:buses,user_driver_id|unique:cars,user_driver_id',
             'vehicle_id' => 'required|exists:vehicles,id',
             'car_type' => 'required|string|max:255',
             'car_number' => 'required|string|max:255',
@@ -37,10 +37,15 @@ class Add_Car_Request extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $userDriverId = $this->input('user_driver_id');
-            $user = User::find($userDriverId);
-            if ($user && $user->user_type !== 'Driver') {
-                $validator->errors()->add('user_driver_id', 'The selected user must be a driver.');
+            // $userDriverId = $this->input('user_driver_id');
+            $vehicle_id = $this->input('vehicle_id');
+            // $user = User::find($userDriverId);
+            $vehicle = Vehicle::find($vehicle_id);
+            // if ($user && $user->user_type !== 'Driver') {
+            //     $validator->errors()->add('user_driver_id', 'The selected user must be a driver.');
+            // }
+            if ($vehicle->vehicle_type !== 'Car') {
+                $validator->errors()->add('type_vehicle', 'The selected vehicle for bus not car.');
             }
         });
     }

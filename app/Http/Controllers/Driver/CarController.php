@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Driver;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Car\Add_Car_Request;
-use App\Http\Requests\Car\Edit_Car_Request;
-use App\Http\Resources\Car\CarResource;
-use App\Http\Resources\PagenateCollection;
-use App\Http\Traits\GeneralTrait;
+use App\Models\Bus;
 use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Http\Traits\GeneralTrait;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Car\CarResource;
+use App\Http\Requests\Car\Add_Car_Request;
+use App\Http\Resources\PagenateCollection;
+use App\Http\Requests\Car\Edit_Car_Request;
 
 class CarController extends Controller
 {
@@ -17,6 +18,8 @@ class CarController extends Controller
     public function AddCar(Add_Car_Request $request)
     {
         $data = $request->validated();
+        $data['user_driver_id'] = auth()->user()->id;
+        if (Car::isDriverHaveCar($data['user_driver_id']) || Bus::isDriverHaveBus($data['user_driver_id'])) return $this->returnError('The driver alredy have car or bus.', 422);
         $car = Car::create($data);
         return $this->returnData('Stored', 'car', new CarResource($car));
     }

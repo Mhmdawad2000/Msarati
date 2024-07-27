@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Driver;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Bus\BusResource;
-use App\Http\Resources\PagenateCollection;
-use App\Http\Traits\GeneralTrait;
 use App\Models\Bus;
-use App\Http\Requests\Bus\Add_Bus_Request;
-use App\Http\Requests\Bus\Edit_Bus_Request;
+use App\Models\Car;
 use Illuminate\Http\Request;
-
+use App\Http\Traits\GeneralTrait;
+use App\Http\Controllers\Controller;
 use function Laravel\Prompts\select;
+use App\Http\Resources\Bus\BusResource;
+use App\Http\Requests\Bus\Add_Bus_Request;
+
+use App\Http\Resources\PagenateCollection;
+use App\Http\Requests\Bus\Edit_Bus_Request;
 
 class BusController extends Controller
 {
@@ -19,6 +20,8 @@ class BusController extends Controller
     public function Addbus(Add_Bus_Request $request)
     {
         $data = $request->validated();
+        $data['user_driver_id'] = auth()->user()->id;
+        if (Car::isDriverHaveCar($data['user_driver_id']) || Bus::isDriverHaveBus($data['user_driver_id'])) return $this->returnError('The driver alredy have car or bus.', 422);
         $bus = Bus::create($data);
         return $this->returnData('Stored', 'bus', new BusResource($bus));
     }

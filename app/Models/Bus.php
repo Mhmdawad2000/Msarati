@@ -28,4 +28,9 @@ class Bus extends Model
     {
         return $this->hasMany(BusTrip::class, 'bus_id');
     }
+
+    public static function isDriverHaveBus($id)
+    {
+        return self::where('user_driver_id', $id)->first() == null ? 0 : 1;
+    }
 }

@@ -17,7 +17,7 @@ class VehicleController extends Controller
     public function AddVehicle(Request $request)
     {
         $data = $request->validate([
-            'vehicle_type' => 'required|string',
+            'vehicle_type' => 'required|string|in:Bus,Car',
             'num_passengers' => 'required|numeric|min:1',
             'fual_type'    => 'required|string'
         ]);
@@ -29,7 +29,6 @@ class VehicleController extends Controller
     {
         $data = $request->validate([
             'id' => 'required|exists:vehicles,id',
-            'vehicle_type' => 'required|string',
             'num_passengers' => 'required|numeric|min:1',
             'fual_type'    => 'required|string'
         ]);

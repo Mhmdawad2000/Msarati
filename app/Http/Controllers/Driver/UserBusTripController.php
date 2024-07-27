@@ -46,21 +46,20 @@ class UserBusTripController extends Controller
         $user_bus_trips = UserBusTrip::paginate(10);
         return $this->returnCollection('user_bus_trips', $user_bus_trips);
     }
-    public function GetAllUsersToBusTrip(Request $request)
+    public  function GetAllUsersToBusTrip(Request $request)
     {
         $request->validate([
             'id' => 'required|exists:bus_trips,id'
         ]);
-        $users_bus_trip = UserBusTrip::where('bus_trip_id', $request->id)->get()->paginate(10);
-        return $this->returnCollection('users_bus_trip', $users_bus_trip);
+        $users_bus_trip = UserBusTrip::getAllUserToBusTrip($request->id);
+        return $this->returnCollection('users', $users_bus_trip);
     }
     public function GetAllBusTripsToUser(Request $request)
     {
         $request->validate([
             'id' => 'required|exists:users,id'
         ]);
-        $bus_trips_user = UserBusTrip::where('user_passenger_id', $request->id)->get()->paginate(10);
-
-        return $this->returnCollection('bus_trips_user', $bus_trips_user);
+        $bus_trips_user = UserBusTrip::getAllBusTripsToUser($request->id);
+        return $this->returnCollection('bus_trips', $bus_trips_user);
     }
 }

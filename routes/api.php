@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Driver\BusController;
 use App\Http\Controllers\Driver\BusTripController;
 use App\Http\Controllers\Driver\CarController;
-use App\Http\Controllers\Driver\CarRouteController;
+use App\Http\Controllers\Driver\UserBusTripController;
 use App\Http\Controllers\User\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

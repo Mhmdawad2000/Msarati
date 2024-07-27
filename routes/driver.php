@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth:sanctum', 'Driver_Role']], function () {
     ////////////////////////////////// Start BusTrip
     Route::post('add-bus-trip', [BusTripController::class, 'AddBusTrip']);
     Route::post('edit-bus-trip', [BusTripController::class, 'EditBusTrip']);
+    Route::post('edit-bus-trip', [BusTripController::class, 'EditBusTrip']);
+    Route::post('add-bus-trip-to-archive', [BusTripController::class, 'AddBusTripToArchive']);
     ////////////////////////////////// End BusTrip
 
     /////////////////////////////// Start UserBusTrip
