@@ -13,4 +13,12 @@ class BusTrip extends Model
         'created_at',
         'updated_at',
     ];
+    public function Bus()
+    {
+        return $this->belongsTo(Bus::class, 'bus_id');
+    }
+    public function Trip()
+    {
+        return $this->belongsTo(Trip::class, 'trip_id');
+    }
 }

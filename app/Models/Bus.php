@@ -23,4 +23,9 @@ class Bus extends Model
     {
         return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
+
+    public function BusTrips()
+    {
+        return $this->hasMany(BusTrip::class, 'bus_id');
+    }
 }

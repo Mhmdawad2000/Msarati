@@ -34,9 +34,9 @@ class CarController extends Controller
         $request->validate([
             'id' => 'required|exists:cars,id'
         ]);
-        $car = Car::with('vehicle')->find($request->id);
+        $car = Car::with('DetailsRoutes')->find($request->id);
         if ($car) {
-            return $this->returnCollection('car', new CarResource($car));
+            return $this->returnCollection('car',  new CarResource($car));
         } else {
             return $this->returnError('The car not found', 404);
         }

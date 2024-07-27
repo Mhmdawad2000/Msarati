@@ -22,8 +22,12 @@ class Car extends Model
     {
         return $this->belongsTo(User::class, 'user_driver_id');
     }
-    public function CarRoutes()
+    public function Routes()
     {
-        return $this->hasMany(CarRoute::class, 'id');
+        return $this->hasMany(CarRoute::class, 'car_id');
+    }
+    public function DetailsRoutes()
+    {
+        return $this->belongsToMany(Route::class, 'car_routes');
     }
 }

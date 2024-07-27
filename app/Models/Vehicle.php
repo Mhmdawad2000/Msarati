@@ -15,10 +15,10 @@ class Vehicle extends Model
     ];
     public function Buses()
     {
-        return $this->hasMany(Bus::class, 'id');
+        return $this->hasMany(Bus::class, 'veihcle_id');
     }
     public function Cars()
     {
-        return $this->hasMany(Car::class, 'id');
+        return $this->hasMany(Car::class, 'vehicle_id');
     }
 }

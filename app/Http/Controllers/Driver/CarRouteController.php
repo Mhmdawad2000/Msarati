@@ -22,9 +22,9 @@ class CarRouteController extends Controller
     public function EditRouteToCar(Edit_Car_Route_Request $request)
     {
         $data = $request->validated();
-        $carroute = CarRoute::find($request->id);
-        $carroute->update($data);
-        return $this->returnData('Edited', 'car_route', $carroute);
+        $car_route = CarRoute::find($request->id);
+        $car_route->update($data);
+        return $this->returnData('Edited', 'car_route', $car_route);
     }
 
 

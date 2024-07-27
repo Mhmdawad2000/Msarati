@@ -15,10 +15,14 @@ class Route extends Model
     ];
     public function Trips()
     {
-        return $this->hasMany(Trip::class, 'id');
+        return $this->hasMany(Trip::class, 'trip_id');
     }
     public function CarRoutes()
     {
-        return $this->hasMany(CarRoute::class, 'id');
+        return $this->hasMany(CarRoute::class, 'route_id');
+    }
+    public function DetailsCar()
+    {
+        return $this->belongsToMany(Car::class, 'car_routes');
     }
 }
